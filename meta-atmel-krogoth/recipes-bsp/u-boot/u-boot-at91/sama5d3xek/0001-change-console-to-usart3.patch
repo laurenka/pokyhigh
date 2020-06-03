@@ -1,0 +1,63 @@
+From 4976d0d7ee87c62648d979cb0d4b4c1690feb4a2 Mon Sep 17 00:00:00 2001
+From: dykim <dykim@smartonoff.com>
+Date: Wed, 12 Apr 2017 13:59:28 +0900
+Subject: [PATCH] change console to usart3
+
+---
+ arch/arm/mach-at91/armv7/sama5d3_devices.c | 11 +++++++++++
+ include/configs/at91sam9x5ek.h             |  4 ++--
+ 2 files changed, 13 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm/mach-at91/armv7/sama5d3_devices.c b/arch/arm/mach-at91/armv7/sama5d3_devices.c
+index 64ac262818..7d6440c8dd 100644
+--- a/arch/arm/mach-at91/armv7/sama5d3_devices.c
++++ b/arch/arm/mach-at91/armv7/sama5d3_devices.c
+@@ -77,6 +77,15 @@ void at91_serial2_hw_init(void)
+ 	at91_periph_clk_enable(ATMEL_ID_USART2);
+ }
+ 
++void at91_serial3_hw_init(void)
++{
++	at91_set_b_periph(AT91_PIO_PORTE, 19, 1);	/* TXD2 */
++	at91_set_b_periph(AT91_PIO_PORTE, 18, 0);	/* RXD2 */
++
++	/* Enable clock */
++	at91_periph_clk_enable(ATMEL_ID_USART3);
++}
++
+ void at91_seriald_hw_init(void)
+ {
+ 	at91_set_a_periph(AT91_PIO_PORTB, 31, 1);	/* DTXD */
+@@ -84,6 +93,8 @@ void at91_seriald_hw_init(void)
+ 
+ 	/* Enable clock */
+ 	at91_periph_clk_enable(ATMEL_ID_DBGU);
++
++	at91_serial3_hw_init();
+ }
+ 
+ #if defined(CONFIG_ATMEL_SPI)
+diff --git a/include/configs/at91sam9x5ek.h b/include/configs/at91sam9x5ek.h
+index 70475e1b02..2182e653d4 100644
+--- a/include/configs/at91sam9x5ek.h
++++ b/include/configs/at91sam9x5ek.h
+@@ -211,14 +211,14 @@
+ 				"fatload mmc 0:1 0x21000000 ${dtb_name}; " \
+ 				"fatload mmc 0:1 0x22000000 zImage; "	\
+ 				"bootz 0x22000000 - 0x21000000"
+-#define CONFIG_BOOTARGS		"mem=128M console=ttyS0,115200 " \
++#define CONFIG_BOOTARGS		"mem=128M console=ttyS4,115200 " \
+ 				"mtdparts=atmel_nand:" \
+ 				"8M(bootstrap/uboot/kernel)ro,-(rootfs) " \
+ 				"root=/dev/mmcblk0p2 " \
+ 				"rw rootfstype=ext4 rootwait"
+ #else
+ #define CONFIG_BOOTARGS							\
+-	"console=ttyS0,115200 earlyprintk "				\
++	"console=ttyS4,115200 earlyprintk "				\
+ 	"mtdparts=atmel_nand:256k(bootstrap)ro,512k(uboot)ro,"		\
+ 	"256k(env),256k(env_redundant),256k(spare),"			\
+ 	"512k(dtb),6M(kernel)ro,-(rootfs) "				\
+-- 
+2.11.0
+

@@ -1,0 +1,53 @@
+From c0afb125e737c15aa6dfec8adb5c5da9ecf19686 Mon Sep 17 00:00:00 2001
+From: dykim <dykim@smartonoff.com>
+Date: Wed, 14 Dec 2016 13:56:02 +0900
+Subject: [PATCH] add uart devices
+
+---
+ arch/arm/boot/dts/sama5d3xmb.dtsi | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
+
+diff --git a/arch/arm/boot/dts/sama5d3xmb.dtsi b/arch/arm/boot/dts/sama5d3xmb.dtsi
+index 88c006b..f7c7894 100644
+--- a/arch/arm/boot/dts/sama5d3xmb.dtsi
++++ b/arch/arm/boot/dts/sama5d3xmb.dtsi
+@@ -75,6 +75,13 @@
+ 				};
+ 			};
+ 
++			usart0: serial@f001c000 {
++				dmas = <0>, <0>;	/*  Do not use DMA for usart1 */
++				pinctrl-names = "default";
++				pinctrl-0 = <&pinctrl_usart0 &pinctrl_usart0_rts_cts>;
++				status = "okay";
++			};
++
+ 			usart1: serial@f0020000 {
+ 				dmas = <0>, <0>;	/*  Do not use DMA for usart1 */
+ 				pinctrl-names = "default";
+@@ -82,6 +89,22 @@
+ 				status = "okay";
+ 			};
+ 
++			usart2: serial@f8020000 {
++				dmas = <0>, <0>;	/*  Do not use DMA for usart1 */
++				pinctrl-names = "default";
++				pinctrl-0 = <&pinctrl_usart2 &pinctrl_usart2_rts_cts>;
++				status = "okay";
++			};
++
++			usart3: serial@f8024000 {
++				dmas = <0>, <0>;	/*  Do not use DMA for usart1 */
++				pinctrl-names = "default";
++				pinctrl-0 = <&pinctrl_usart3 &pinctrl_usart3_rts_cts>;
++				status = "okay";
++			};
++			
++
++
+ 			isi: isi@f0034000 {
+ 				port {
+ 					isi_0: endpoint {
+-- 
+2.7.4
+

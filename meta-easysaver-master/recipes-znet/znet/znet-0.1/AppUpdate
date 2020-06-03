@@ -1,0 +1,9 @@
+#!/bin/sh -e
+fileName="/home/root/NcpGateway.update"
+
+if [ -f $fileName ]; then
+        echo "######### APP Up-date ############"
+        rm -f /home/root/NcpGateway
+        mv /home/root/NcpGateway.update /home/root/NcpGateway
+        chmod 777 /home/root/NcpGateway
+fi

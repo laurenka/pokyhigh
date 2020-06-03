@@ -1,0 +1,1 @@
+{"url":"ws://127.0.0.1:3030/ws","buttonMin":1,"buttonMax":65534,"buttonChange":0,"wattMin":600,"wattMax":600,"wattChange":0,"whMin":1,"whMax":0,"whChange":3333}
